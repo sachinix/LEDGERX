@@ -144,14 +144,5 @@ VITE_API_URL=http://localhost:3000/api
 | GET | `/api/transactions/admin/all` | Admin | All transactions in the system |
 | POST | `/api/transactions/system/initial-funds` | Admin | Seed funds into an account |
 
-## Roadmap
 
-- [ ] Rate limiting on auth endpoints
-- [ ] Paginated transaction history
-- [ ] Transaction reversal/refund flow
-- [ ] Verified sending domain for unrestricted email delivery
-- [ ] Automated tests (unit + integration) for the transfer flow, including a concurrency test simulating simultaneous transfers
 
----
-
-Built by [Sachin](https://github.com/sachinix) as a placement portfolio project.
