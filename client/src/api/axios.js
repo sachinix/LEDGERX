@@ -1,28 +1,37 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  try {
-    const storedUser = JSON.parse(localStorage.getItem('ledgerxUser') || '{}');
-    const token = storedUser?.token;
-    if (token) {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${token}`,
-      };
-    }
-  } catch (err) {
-    // ignore malformed localStorage entries
-  }
+axiosInstance.interceptors.request.use(
+  (config) => {
+    try {
+      const storedUser = JSON.parse(
+        localStorage.getItem("ledgerxUser") || "{}"
+      );
 
-  return config;
-});
+      const token = storedUser?.token;
+
+      if (token) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${token}`,
+        };
+      }
+    } catch (error) {
+      console.log("Token parsing error:", error);
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
